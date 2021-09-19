@@ -1,4 +1,3 @@
-
 from pathlib import Path
 import os
 from os import environ
@@ -7,21 +6,15 @@ import socket
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = '5ia5g8$2_q%t)je)jql=wr%&s^e%mvt11=ho7)j8#2t)poqmh*'
+#SECRET_KEY = environ.get('SECRET_KEY')
 
-# from django.core.management.utils import get_random_secret_key
-# print(get_random_secret_key())
-SECRET_KEY = os.environ.get('SECRET_KEY')
-
-
+DEBUG = int(environ.get('DEBUG', default=1))
 #DEBUG = True
-#DEBUG = False
-DEBUG = int(environ.get('DEBUG', default=0))
 
-
-#ALLOWED_HOSTS = ['.localhost', '127.0.0.1', '0.0.0.0',]
-#ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(' ')
-ALLOWED_HOSTS = environ.get('ALLOWED_HOSTS').split(' ')
-
+ALLOWED_HOSTS = ['.localhost', '127.0.0.1', ]
+#ALLOWED_HOSTS = environ.get('ALLOWED_HOSTS')  #.split(' ')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -31,7 +24,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'myapp',
-    'bootstrap4',
+    'phonenumber_field',
 ]
 
 MIDDLEWARE = [
@@ -66,28 +59,18 @@ WSGI_APPLICATION = 'employees.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
+# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-"""
+"""  
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql', 
-        'NAME': 'web',
-        'USER': 'test',
-        'PASSWORD': 'test',
-        'HOST': 'db',
-        'PORT': '5432',
-    }
-}
 """
 
+"""  
 DATABASES = {
     'default': {
         'ENGINE': environ.get('POSTGRES_ENGINE', 'django.db.backends.sqlite3'),
@@ -98,9 +81,23 @@ DATABASES = {
         'PORT': environ.get('POSTGRES_PORT', '5432'),
     }
 }
+"""
+
+ 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'myapp',
+        'USER': 'test',
+        'PASSWORD': 'test',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
+
 
 # Password validation
-# https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
+# https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -119,11 +116,11 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 # Internationalization
-# https://docs.djangoproject.com/en/3.2/topics/i18n/
+# https://docs.djangoproject.com/en/3.1/topics/i18n/
 
 LANGUAGE_CODE = 'ru-ru'
 
-TIME_ZONE = 'Europe/Moscow' 
+TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 
@@ -133,17 +130,11 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.2/howto/static-files/
+# https://docs.djangoproject.com/en/3.1/howto/static-files/
+
 
 STATIC_URL = '/static/'
-#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATIC_ROOT = BASE_DIR / "static"
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
-#MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_ROOT = BASE_DIR / "media"
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
-
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
