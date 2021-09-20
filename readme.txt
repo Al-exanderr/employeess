@@ -20,8 +20,12 @@ sudo systemctl enable docker
 docker-compose -f docker-compose.yml up -d --build
 # если надо, затереть старую базу: (потом перезапустить docker-compose или сделать миграцию)
 docker-compose exec web python manage.py flush --no-input 
+#Если с первого раза не заработал, перезапустить.
+
 
 
 Инструкция по разворачиванию в деплой:
+аналогична приведённой для продакшана, только другой дистрибутив:
+git clone https://github.com/Al-exanderr/employeess_dev.git
 
-Буду очень благодарен за фидбек.
+Буду очень благодарен за фидбек..
